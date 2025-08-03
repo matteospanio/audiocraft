@@ -13,7 +13,7 @@ source .env
 
 export HYDRA_FULL_ERROR=1
 export CUDA_LAUNCH_BLOCKING=1
-export TORCH_DISTRIBUTED_DEBUG=ERROR
+export TORCH_DISTRIBUTED_DEBUG=OFF # change to INFO for more verbose output
 export PATH="$PATH:$HOME/ffmpeg:$HOME/.local/bin"
 
 export DORA_PACKAGE="audiocraft"
@@ -26,7 +26,7 @@ srun --mail-user "$EMAIL" ~/miniconda3/bin/conda run -n musicgen \
 		model/lm/model_scale=medium \
 		continue_from=//pretrained/facebook/musicgen-medium \
 		conditioner=text2music \
-		dset=audio/train \
+		dset=audio/tasty_music \
 		logging.log_wandb=true \
 		wandb.project=musicgen-medium \
 		dataset.num_workers=1 \
@@ -38,7 +38,8 @@ srun --mail-user "$EMAIL" ~/miniconda3/bin/conda run -n musicgen \
 		autocast=false \
         deadlock.use=false \
 		fsdp.use=true \
-        fsdp.sharding_strategy=full_shard \
+        checkpoint.save_every=2 \
+        checkpoint.keep_last=5 \
 		optim.lr=1e-4 \
 		optim.epochs=50 \
 		optim.updates_per_epoch=2000 \
