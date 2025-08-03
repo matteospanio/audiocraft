@@ -36,7 +36,7 @@ srun --mail-user "$EMAIL" ~/miniconda3/bin/conda run -n musicgen \
 		generate.lm.prompted_samples=False \
 		generate.lm.gen_gt_samples=True \
 		autocast=false \
-        deadlock.use=false \
+		deadlock.use=false \
 		fsdp.use=true \
         checkpoint.save_every=2 \
         checkpoint.keep_last=5 \
