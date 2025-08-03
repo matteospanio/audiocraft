@@ -60,3 +60,5 @@ dataset/*
 /notebooks
 /local_scripts
 /notes
+log/out/*.txt
+log/err/*.txt
